@@ -100,32 +100,5 @@
             </div>
         </div>
     </footer>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
-    
-    if (productId) {
-        fetch(`/api/furniture.php?id=${productId}`)
-            .then(response => response.json())
-            .then(product => {
-                // Пример заполнения данных (адаптируйте под вашу разметку)
-                document.querySelector('.product-title').textContent = product.name;
-                document.querySelector('.product-image').src = product.image_url;
-                document.querySelector('.product-price').textContent = `$${product.price.toFixed(2)}`;
-                document.querySelector('.product-description').textContent = product.description;
-                
-                // Дополнительные поля
-                if (document.querySelector('.product-dimensions')) {
-                    document.querySelector('.product-dimensions').textContent = product.dimensions;
-                }
-                if (document.querySelector('.product-material')) {
-                    document.querySelector('.product-material').textContent = product.material;
-                }
-            })
-            .catch(error => console.error('Error loading product:', error));
-    }
-});
-</script>
 </body>
 </html>
