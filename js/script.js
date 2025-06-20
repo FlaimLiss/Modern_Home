@@ -251,8 +251,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
    //РЕГИСТРАЦИЯ
-    // Проверяем авторизацию при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
+            // Получаем существующих пользователей или создаем новый массив
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            // Проверяем авторизацию при загрузке страницы
+            document.addEventListener('DOMContentLoaded', function() {
             checkAuthStatus();
             
             // Обработчики для переключения между формами
