@@ -527,3 +527,67 @@ footer .container {
         #logout-btn:hover {
             text-decoration: underline;
         }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px;
+            display: flex;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            width: 250px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-name {
+            margin-top: 0;
+            color: #333;
+        }
+        
+        .product-price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2a5885;
+            display: block;
+            margin: 10px 0;
+        }
+        
+        .product-meta {
+            margin: 10px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .product-meta span {
+            display: inline-block;
+            margin-right: 15px;
+        }
+        
+        .product-description {
+            color: #555;
+            line-height: 1.5;
+        }
+        
+        .add-to-cart {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #45a049;
+        }
