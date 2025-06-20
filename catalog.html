@@ -42,34 +42,6 @@
             </div>
         </div>
     </footer>
-    <script src="js/script.js?v=1.1"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    fetch('api/furniture.php')
-        .then(response => response.json())
-        .then(data => {
-            const catalog = document.getElementById('catalog');
-            data.forEach(item => {
-                catalog.innerHTML += `
-                    <div class="product-card">
-                        <img src="${item.image_url}" alt="${item.name}" class="product-image">
-                        <div class="product-info">
-                            <h3 class="product-name">${item.name}</h3>
-                            <span class="product-price">$${item.price.toFixed(2)}</span>
-                            <div class="product-meta">
-                                <span>Категория: ${item.category}</span>
-                                <span>Материал: ${item.material}</span>
-                                <span>Размеры: ${item.dimensions}</span>
-                            </div>
-                            <p class="product-description">${item.description}</p>
-                            <button class="add-to-cart">В корзину</button>
-                        </div>
-                    </div>
-                `;
-            });
-        })
-        .catch(error => console.error('Error:', error));
-});
-</script>
-</body>
+   <script src="js/script.js?v=1.1"></script>
+ </body>
 </html>
