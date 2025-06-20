@@ -488,4 +488,136 @@ footer .container {
     .footer-section {
         margin-bottom: 30px;
     }
+    /* Стили для модального окна с характеристиками */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    background: none;
+    border: none;
+}
+
+.modal-product-image {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.modal-product-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.modal-product-price {
+    font-size: 20px;
+    color: #e74c3c;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.modal-product-description {
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.product-specs {
+    margin-top: 20px;
+}
+
+.product-specs h4 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+.specs-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.specs-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.specs-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.specs-table td:first-child {
+    font-weight: 500;
+    color: #555;
+    width: 40%;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.modal-actions .btn {
+    flex: 1;
+    margin: 0 5px;
+}
+
+/* Адаптивность модального окна */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-product-image {
+        height: 200px;
+    }
+    
+    .modal-actions {
+        flex-direction: column;
+    }
+    
+    .modal-actions .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
 }
