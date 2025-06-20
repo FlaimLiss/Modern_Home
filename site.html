@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Home - Современная мебель</title>
+    <title>Каталог - Modern Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="js/script.js"></script>
 </head>
 <body>
@@ -14,72 +14,131 @@
             <div class="logo">Modern Home</div>
             <nav>
                 <ul>
-                    <li><a class="nav-link" href="site.html"">Главная</a></li>
-                    <li><a class="nav-link" href="catalog.html">Каталог</a></li>
-                    <li><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span id="cart-count">0</span></a></li>
-                    <li><a class="nav-link btn-register" href="register.html">Регистрация</a></li>
+                    <li><a href="site.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span id="cart-count">0</span></a></li>
+                    <li><a href="register.html" class="btn-register">Регистрация</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-<!-- Главная страница -->
-    <section id="home" class="section active">
-        <div class="hero">
-            <div class="container">
-                <h1>Современная мебель для вашего дома</h1>
-                <p>Откройте для себя коллекцию элегантной и функциональной мебели</p>
-                <a class="btn nav-link" data-section="catalog">Посмотреть каталог</a>
+    <section class="catalog">
+        <div class="container">
+            <h1>Каталог мебели</h1>
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="all">Все категории</option>
+                    <option value="sofas">Диваны</option>
+                    <option value="chairs">Кресла</option>
+                    <option value="tables">Столы</option>
+                    <option value="beds">Кровати</option>
+                </select>
+                <select id="price-filter">
+                    <option value="all">Любая цена</option>
+                    <option value="0-10000">До 10,000 ₽</option>
+                    <option value="10000-30000">10,000 - 30,000 ₽</option>
+                    <option value="30000-50000">30,000 - 50,000 ₽</option>
+                    <option value="50000+">От 50,000 ₽</option>
+                </select>
             </div>
-        </div>
-
-        <div class="features">
-            <div class="container">
-                <div class="feature">
-                    <i class="fas fa-truck"></i>
-                    <h3>Быстрая доставка</h3>
-                    <p>Доставка по всей стране за 3-5 рабочих дней</p>
+            
+            <div class="products-grid">
+                <!-- Диван Modern Comfort -->
+                <div class="product-card" data-category="sofas" data-price="45999" 
+                     data-specs='{"Материал": "Ткань, дерево, металл", "Размеры": "220x90x85 см", "Цвет": "Серый", "Механизм": "Еврокнижка", "Гарантия": "2 года"}'>
+                    <img src="images/sofa1.jpg" alt="Диван Modern Comfort">
+                    <h3>Диван Modern Comfort</h3>
+                    <p class="description">Элегантный диван с подлокотниками и регулируемой спинкой</p>
+                    <p class="price">45,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="1" data-name="Диван Modern Comfort" data-price="45999">В корзину</button>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-undo"></i>
-                    <h3>Легкий возврат</h3>
-                    <p>30 дней на возврат товара без вопросов</p>
+                
+                <!-- Кресло Elegance -->
+                <div class="product-card" data-category="chairs" data-price="12499" 
+                     data-specs='{"Материал": "Металл, ткань", "Размеры": "75x85x65 см", "Цвет": "Бежевый", "Макс. нагрузка": "120 кг", "Гарантия": "1 год"}'>
+                    <img src="images/chair1.jpg" alt="Кресло Elegance">
+                    <h3>Кресло Elegance</h3>
+                    <p class="description">Удобное кресло с металлическим каркасом и тканевой обивкой</p>
+                    <p class="price">12,499 ₽</p>
+                    <button class="btn add-to-cart" data-id="2" data-name="Кресло Elegance" data-price="12499">В корзину</button>
                 </div>
-                <div class="feature">
-                    <i class="fas fa-medal"></i>
-                    <h3>Гарантия качества</h3>
-                    <p>Все товары проходят строгий контроль качества</p>
+                
+                <!-- Стол Urban -->
+                <div class="product-card" data-category="tables" data-price="22799" 
+                     data-specs='{"Материал": "Массив дуба, металл", "Размеры": "150x90x75 см", "Цвет": "Натуральное дерево", "Форма": "Прямоугольный", "Гарантия": "3 года"}'>
+                    <img src="images/table1.jpg" alt="Стол Urban">
+                    <h3>Стол Urban</h3>
+                    <p class="description">Современный стол из массива дерева с металлическими ножками</p>
+                    <p class="price">22,799 ₽</p>
+                    <button class="btn add-to-cart" data-id="3" data-name="Стол Urban" data-price="22799">В корзину</button>
                 </div>
-            </div>
-        </div>
-
-         <div class="popular-products">
-            <div class="container">
-                <h2>Популярные товары</h2>
-                <div class="products-grid">
-                    <!-- Существующие товары -->
-                    <div class="product-card" data-category="sofas" data-price="45999">
-                        <img src="images/sofa1.jpg" alt="Диван Modern Comfort">
-                        <h3>Диван Modern Comfort</h3>
-                        <p class="price">45,999 ₽</p>
-                        <button class="btn add-to-cart" data-id="1" data-name="Диван Modern Comfort" data-price="45999">В корзину</button>
-                    </div>
-                    <div class="product-card" data-category="chairs" data-price="12499">
-                        <img src="images/chair1.jpg" alt="Кресло Elegance">
-                        <h3>Кресло Elegance</h3>
-                        <p class="price">12,499 ₽</p>
-                        <button class="btn add-to-cart" data-id="2" data-name="Кресло Elegance" data-price="12499">В корзину</button>
-                    </div>
-                    <div class="product-card" data-category="tables" data-price="22799">
-                        <img src="images/table1.jpg" alt="Стол Urban">
-                        <h3>Стол Urban</h3>
-                        <p class="price">22,799 ₽</p>
-                        <button class="btn add-to-cart" data-id="3" data-name="Стол Urban" data-price="22799">В корзину</button>
-                    </div>
+                
+                <!-- Кровать Minimal -->
+                <div class="product-card" data-category="beds" data-price="38999" 
+                     data-specs='{"Материал": "МДФ, металл", "Размеры": "200x160x40 см", "Цвет": "Белый", "Ящики": "4 шт", "Гарантия": "2 года"}'>
+                    <img src="images/bed1.jpg" alt="Кровать Minimal">
+                    <h3>Кровать Minimal</h3>
+                    <p class="description">Минималистичная кровать с мягким изголовьем и ящиками для хранения</p>
+                    <p class="price">38,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="4" data-name="Кровать Minimal" data-price="38999">В корзину</button>
+                </div>
+                
+                <!-- Диван Compact -->
+                <div class="product-card" data-category="sofas" data-price="32999" 
+                     data-specs='{"Материал": "Экокожа, металл", "Размеры": "190x85x75 см", "Цвет": "Черный", "Механизм": "Клик-кляк", "Гарантия": "2 года"}'>
+                    <img src="images/sofa2.jpg" alt="Диван Compact">
+                    <h3>Диван Compact</h3>
+                    <p class="description">Компактный диван-кровать с механизмом трансформации</p>
+                    <p class="price">32,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="5" data-name="Диван Compact" data-price="32999">В корзину</button>
+                </div>
+                
+                <!-- Кресло Relax -->
+                <div class="product-card" data-category="chairs" data-price="8999" 
+                     data-specs='{"Материал": "Дерево, текстиль", "Размеры": "70x80x60 см", "Цвет": "Серый", "Регулировка": "Наклон спинки", "Гарантия": "1 год"}'>
+                    <img src="images/chair2.jpg" alt="Кресло Relax">
+                    <h3>Кресло Relax</h3>
+                    <p class="description">Кресло для отдыха с регулируемым наклоном спинки</p>
+                    <p class="price">8,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="6" data-name="Кресло Relax" data-price="8999">В корзину</button>
+                </div>
+                
+                <!-- Стол Waterlone -->
+                <div class="product-card" data-category="tables" data-price="36999" 
+                     data-specs='{"Материал": "Стекло, металл", "Размеры": "120x60x75 см", "Цвет": "Прозрачный/Хром", "Особенность": "Узор водной глади", "Гарантия": "3 года"}'>
+                    <img src="images/table2.jpg" alt="Стол Waterlone">
+                    <h3>Стол Waterlone</h3>
+                    <p class="description">Комфортабельный стол с прекрасным узором водной глади</p>
+                    <p class="price">36,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="7" data-name="Стол Waterlone" data-price="36999">В корзину</button>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Модальное окно с характеристиками -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <img src="" alt="" class="modal-product-image" id="modalProductImage">
+            <h3 class="modal-product-title" id="modalProductTitle"></h3>
+            <p class="modal-product-price" id="modalProductPrice"></p>
+            <p class="modal-product-description" id="modalProductDescription"></p>
+            
+            <div class="product-specs">
+                <h4>Характеристики</h4>
+                <table class="specs-table" id="productSpecsTable">
+                    <!-- Спецификации будут добавлены через JavaScript -->
+                </table>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn add-to-cart" id="modalAddToCart">Добавить в корзину</button>
+                <button class="btn btn-register" id="modalBuyNow">Купить сейчас</button>
+            </div>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
@@ -96,12 +155,13 @@
                 <h3>Быстрая навигация</h3>
                 <ul>
                     <li><a class="button" href="site.html">Главная</a></li>
-                    <li><a class="button" href="catalog.html"="catalog">Каталог</a></li>
+                    <li><a class="button" href="catalog.html">Каталог</a></li>
                     <li><a class="button" href="cart.html">Корзина</a></li>
                 </ul>
             </div>
         </div>
     </footer>
-<script src="js/script.js?v=1.1"></script>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
