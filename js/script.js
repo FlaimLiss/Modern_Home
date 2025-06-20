@@ -250,3 +250,60 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+// Функция для отображения товаров в корзине
+function displayCartItems() {
+    const cartItemsElement = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
+    
+    // Получаем корзину из localStorage
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    if (cart.length === 0) {
+        cartItemsElement.innerHTML = '<p class="empty-cart">Ваша корзина пуста</p>';
+        cartTotalElement.textContent = '0';
+        return;
+    }
+    
+    let total = 0;
+    let itemsHTML = '';
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        
+        itemsHTML += `
+            <div class="cart-item">
+                <div class="cart-item-info">
+                    <h4>${item.name}</h4>
+                    <p>${item.price} ₽ × ${item.quantity}</p>
+                </div>
+                <div class="cart-item-total">
+                    <p>${itemTotal} ₽</p>
+                    <button class="btn remove-btn" data-id="${item.id}">Удалить</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    cartItemsElement.innerHTML = itemsHTML;
+    cartTotalElement.textContent = total;
+    
+    // Добавляем обработчики для кнопок удаления
+    document.querySelectorAll('.remove-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            removeFromCart(e.target.dataset.id);
+            displayCartItems(); // Обновляем отображение после удаления
+        });
+    });
+}
+
+// Функция для удаления товара из корзины
+function removeFromCart(id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+}
+
+// Вызываем функцию при загрузке страницы
+document.addEventListener('DOMContentLoaded', displayCartItems);
