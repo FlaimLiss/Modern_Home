@@ -103,5 +103,26 @@
         </div>
     </footer>
 <script src="js/script.js?v=1.1"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Загрузка featured products
+    fetch('/api/furniture.php?limit=4')
+        .then(response => response.json())
+        .then(products => {
+            const container = document.querySelector('.products-grid');
+            products.forEach(product => {
+                container.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image_url}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <span class="price">$${product.price.toFixed(2)}</span>
+                        <a href="product.html?id=${product.id}" class="btn">View Details</a>
+                    </div>
+                `;
+            });
+        });
+});
+</script>
 </body>
 </html>
