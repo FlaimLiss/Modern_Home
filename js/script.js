@@ -249,4 +249,109 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             });
         }
     });
+});    
+
+// Обработчик открытия модального окна с характеристиками
+document.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', function(e) {
+        // Проверяем, не был ли клик по кнопке "В корзину"
+        if (!e.target.classList.contains('add-to-cart')) {
+            const productCard = this;
+            const modal = document.getElementById('productModal');
+            
+            // Заполняем модальное окно данными
+            document.getElementById('modalProductImage').src = productCard.querySelector('img').src;
+            document.getElementById('modalProductTitle').textContent = productCard.querySelector('h3').textContent;
+            document.getElementById('modalProductPrice').textContent = productCard.querySelector('.price').textContent;
+            document.getElementById('modalProductDescription').textContent = productCard.querySelector('.description').textContent;
+            
+            // Заполняем таблицу характеристик
+            const specsTable = document.getElementById('productSpecsTable');
+            specsTable.innerHTML = '';
+            
+            const specs = JSON.parse(productCard.getAttribute('data-specs'));
+            for (const [key, value] of Object.entries(specs)) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${key}</td>
+                    <td>${value}</td>
+                `;
+                specsTable.appendChild(row);
+            }
+            
+            // Устанавливаем данные для кнопок в модальном окне
+            const addToCartBtn = productCard.querySelector('.add-to-cart');
+            document.getElementById('modalAddToCart').setAttribute('data-id', addToCartBtn.getAttribute('data-id'));
+            document.getElementById('modalAddToCart').setAttribute('data-name', addToCartBtn.getAttribute('data-name'));
+            document.getElementById('modalAddToCart').setAttribute('data-price', addToCartBtn.getAttribute('data-price'));
+            
+            // Показываем модальное окно
+            modal.classList.add('active');
+        }
+    });
 });
+
+// Закрытие модального окна
+document.getElementById('modalClose').addEventListener('click', function() {
+    document.getElementById('productModal').classList.remove('active');
+});
+
+// Закрытие при клике вне модального окна
+document.getElementById('productModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.remove('active');
+    }
+});
+
+// Обработчик кнопки "Добавить в корзину" в модальном окне
+document.getElementById('modalAddToCart').addEventListener('click', function() {
+    // Используем существующую функцию добавления в корзину
+    addToCart(
+        this.getAttribute('data-id'),
+        this.getAttribute('data-name'),
+        parseFloat(this.getAttribute('data-price')),
+        1
+    );
+    
+    // Закрываем модальное окно
+    document.getElementById('productModal').classList.remove('active');
+    
+    // Показываем уведомление
+    showNotification('Товар добавлен в корзину');
+});
+
+// Обработчик кнопки "Купить сейчас" в модальном окне
+document.getElementById('modalBuyNow').addEventListener('click', function() {
+    const addToCartBtn = document.getElementById('modalAddToCart');
+    
+    // Добавляем товар в корзину
+    addToCart(
+        addToCartBtn.getAttribute('data-id'),
+        addToCartBtn.getAttribute('data-name'),
+        parseFloat(addToCartBtn.getAttribute('data-price')),
+        1
+    );
+    
+    // Закрываем модальное окно
+    document.getElementById('productModal').classList.remove('active');
+    
+    // Перенаправляем в корзину
+    setTimeout(() => {
+        window.location.href = 'cart.html';
+    }, 300);
+});
+
+// Функция показа уведомления (должна быть уже в вашем script.js)
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.className = 'notification show';
+    notification.textContent = message;
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
