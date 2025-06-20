@@ -1,15 +1,13 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
+$host = "sql307.infinityfree.com"; // замените на ваш хост
+$dbname = "if0_39282404_modern_home_db"; // замените на имя вашей БД
+$username = "if0_39282404"; // замените на вашего пользователя
+$password = "Wer_615243_A"; // замените на ваш пароль
 
-$host = "sql307.infinityfree.com";
-$username = "epiz_if0_39282404";
-$password = "Wer_615243_A";
-$dbname = "if0_39282404_modern_home_db";
-
-$conn = new mysqli($host, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(["error" => "Connection failed: " . $conn->connect_error]));
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Ошибка подключения к базе данных: " . $e->getMessage());
 }
 ?>
