@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Корзина - Modern Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -15,26 +15,31 @@
                 <ul>
                     <li><a href="site.html">Главная</a></li>
                     <li><a href="catalog.html">Каталог</a></li>
-                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span id="cart-count">0</span></a></li>
+                    <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span class="cart-count">0</span></a></li>
                     <li><a href="register.html" class="btn-register">Регистрация</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <section class="cart">
-        <div class="container">
+    <main class="container">
+        <section class="cart-section">
             <h1>Ваша корзина</h1>
-            <div class="cart-items" id="cart-items">
-                <!-- Товары будут добавляться сюда динамически -->
+            
+            <div id="cart-items" class="cart-items">
+                <!-- Товары будут добавляться здесь -->
                 <p class="empty-cart">Ваша корзина пуста</p>
             </div>
+            
             <div class="cart-summary">
-                <h3>Итого: <span id="cart-total">0</span> ₽</h3>
-                <button class="btn checkout-btn" id="checkout-btn">Оформить заказ</button>
+                <div class="total-price">
+                    <h3>Итого:</h3>
+                    <span id="cart-total">0</span> ₽
+                </div>
+                <button id="checkout-btn" class="checkout-btn">Оформить заказ</button>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
         <div class="container">
@@ -50,9 +55,9 @@
             <div class="footer-section">
                 <h3>Быстрая навигация</h3>
                 <ul>
-                    <li><a class="button" href="site.html">Главная</a></li>
-                    <li><a class="button" href="catalog.html"="catalog">Каталог</a></li>
-                    <li><a class="button" href="cart.html">Корзина</a></li>
+                    <li><a href="site.html">Главная</a></li>
+                    <li><a href="catalog.html">Каталог</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
                 </ul>
             </div>
         </div>
