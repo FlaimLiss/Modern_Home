@@ -60,7 +60,7 @@ function renderCartItems() {
         total += item.price * item.quantity;
         html += `
             <div class="cart-item" data-id="${item.id}">
-                <img src="images/${item.id === 1 ? 'sofa1' : item.id === 2 ? 'chair1' : item.id === 3 ? 'table1' : item.id === 4 ? 'bed1' : item.id === 5 ? 'sofa2' : item.id === 6 ?'chair2' : item.id === 7 ? 'table2'}.jpg" alt="${item.name}">
+                <img src="images/${item.id === 1 ? 'sofa1' : item.id === 2 ? 'chair1' : item.id === 3 ? 'table1' : item.id === 4 ? 'bed1' : item.id === 5 ? 'sofa2' : item.id === 6 ? 'chair2' : item.id === 7 ? 'table2'}.jpg" alt="${item.name}">
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.name}</div>
                     <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
