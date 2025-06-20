@@ -489,3 +489,20 @@ footer .container {
         margin-bottom: 30px;
     }
 }
+        .login-form { display: none; }
+        .logged-in { display: none; }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
