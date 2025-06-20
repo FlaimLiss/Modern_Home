@@ -19,7 +19,7 @@ function addToCart(id, name, price) {
         cart.push({ id, name, price, quantity: 1 });
     }
     
-    localStorage.setItem('cart', JSON.stringify(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
     showNotification(`${name} добавлен в корзину`);
 }
