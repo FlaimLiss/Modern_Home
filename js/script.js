@@ -1,4 +1,30 @@
+// Корзина
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Объект соответствия ID товаров и их изображений
+const productImages = {
+    1: 'sofa1',
+    2: 'chair1',
+    3: 'table1',
+    4: 'bed1',
+    5: 'sofa2',
+    6: 'chair2',
+    7: 'table2'
+};
+
+// Обновление счетчика корзины
+function updateCartCount() {
+    const count = cart.reduce((total, item) => total + item.quantity, 0);
+    document.querySelectorAll('#cart-count').forEach(el => {
+        el.textContent = count;
+    });
+}
+
+// Добавление товара в корзину
+function addToCart(id, name, price) {
+    const existingItem = cart.find(item => item.id === id);
+    
+    if (existingItem) {
         existingItem.quantity += 1;
     } else {
         cart.push({ id, name, price, quantity: 1 });
