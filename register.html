@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация - Modern Home</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
@@ -16,7 +16,17 @@
                     <li><a href="site.html">Главная</a></li>
                     <li><a href="catalog.html">Каталог</a></li>
                     <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Корзина <span id="cart-count">0</span></a></li>
-                    <li><a href="register.html" class="btn-register">Регистрация</a></li>
+                    <li id="auth-section">
+                        <div class="logged-in">
+                            <div class="user-profile">
+                                <div class="user-avatar" id="user-avatar"></div>
+                                <span id="username-display"></span>
+                            </div>
+                        </div>
+                        <div class="auth-links">
+                            <a href="register.html" class="btn-register">Регистрация</a>
+                        </div>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -24,7 +34,9 @@
 
     <section class="registration">
         <div class="container">
-            <h1>Создать аккаунт</h1>
+            <h1 id="form-title">Создать аккаунт</h1>
+            
+            <!-- Форма регистрации -->
             <form id="register-form">
                 <div class="form-group">
                     <label for="name">Имя</label>
@@ -36,14 +48,28 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Пароль</label>
-                    <input type="password" id="password" name="password" required>
+                    <input type="password" id="password" name="password" required minlength="6">
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Подтвердите пароль</label>
                     <input type="password" id="confirm-password" name="confirm-password" required>
                 </div>
                 <button type="submit" class="btn">Зарегистрироваться</button>
-                <p class="login-link">Уже есть аккаунт? <a href="#">Войти</a></p>
+                <p class="login-link">Уже есть аккаунт? <a href="#" id="show-login">Войти</a></p>
+            </form>
+            
+            <!-- Форма входа -->
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Войти</button>
+                <p class="register-link">Нет аккаунта? <a href="#" id="show-register">Зарегистрироваться</a></p>
             </form>
         </div>
     </section>
@@ -63,13 +89,122 @@
                 <h3>Быстрая навигация</h3>
                 <ul>
                     <li><a class="button" href="site.html">Главная</a></li>
-                    <li><a class="button" href="catalog.html"="catalog">Каталог</a></li>
+                    <li><a class="button" href="catalog.html">Каталог</a></li>
                     <li><a class="button" href="cart.html">Корзина</a></li>
                 </ul>
             </div>
         </div>
     </footer>
     
-    <script src="js/script.js?v=1.1"></script>
+    <script>
+        // Проверяем авторизацию при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuthStatus();
+            
+            // Обработчики для переключения между формами
+            document.getElementById('show-login').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('register-form').style.display = 'none';
+                document.getElementById('login-form').style.display = 'block';
+                document.getElementById('form-title').textContent = 'Вход в аккаунт';
+            });
+            
+            document.getElementById('show-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('login-form').style.display = 'none';
+                document.getElementById('register-form').style.display = 'block';
+                document.getElementById('form-title').textContent = 'Создать аккаунт';
+            });
+            
+            // Обработка формы регистрации
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Пароли не совпадают!');
+                    return;
+                }
+                
+                // Сохраняем пользователя
+                const user = {
+                    name: name,
+                    email: email,
+                    password: password
+                };
+                
+                // Получаем существующих пользователей или создаем новый массив
+                let users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                // Проверяем, есть ли уже пользователь с таким email
+                if (users.some(u => u.email === email)) {
+                    alert('Пользователь с таким email уже зарегистрирован!');
+                    return;
+                }
+                
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                alert('Регистрация прошла успешно!');
+                checkAuthStatus();
+                window.location.href = 'site.html';
+            });
+            
+            // Обработка формы входа
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    alert('Вход выполнен успешно!');
+                    checkAuthStatus();
+                    window.location.href = 'site.html';
+                } else {
+                    alert('Неверный email или пароль!');
+                }
+            });
+        });
+        
+        // Функция проверки статуса авторизации
+        function checkAuthStatus() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const authSection = document.getElementById('auth-section');
+            
+            if (currentUser) {
+                // Пользователь авторизован
+                authSection.querySelector('.auth-links').style.display = 'none';
+                authSection.querySelector('.logged-in').style.display = 'block';
+                document.getElementById('username-display').textContent = currentUser.name;
+                document.getElementById('user-avatar').textContent = currentUser.name.charAt(0).toUpperCase();
+                
+                // Обновляем все страницы
+                updateAuthStatusOnAllPages();
+            } else {
+                // Пользователь не авторизован
+                authSection.querySelector('.auth-links').style.display = 'block';
+                authSection.querySelector('.logged-in').style.display = 'none';
+            }
+        }
+        
+        // Функция для обновления статуса на всех страницах
+        function updateAuthStatusOnAllPages() {
+            const pages = ['site.html', 'catalog.html', 'cart.html', 'register.html'];
+            pages.forEach(page => {
+                // Здесь можно добавить логику для обновления других страниц
+                // В реальном проекте лучше использовать SPA или серверные шаблоны
+            });
+        }
+    </script>
 </body>
 </html>
