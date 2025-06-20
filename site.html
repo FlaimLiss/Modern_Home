@@ -930,13 +930,13 @@ pdateQuantity(id, newQuantity);
             
             // Обработчики для кнопок "В корзину"
             document.querySelectorAll('.add-to-cart').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const id = parseInt(btn.dataset.id);
-                    const name = btn.dataset.name;
-                    const price = btn.dataset.price;
-                    addToCart(id, name, price);
-                });
-            });
+        btn.addEventListener('click', () => {
+            const id = parseInt(btn.dataset.id);
+            const name = btn.dataset.name;
+            const price = parseInt(btn.dataset.price);
+            addToCart(id, name, price);
+        });
+    });
             
             // Обработчики для фильтров
             if (document.getElementById('category-filter')) {
