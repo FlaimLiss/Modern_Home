@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Home - Современная мебель</title>
+    <style>
+        /* Общие стили */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #1a252f;
+        }
+
+        .btn-register {
+            background-color: #e74c3c;
+        }
+
+        .btn-register:hover {
+            background-color: #c0392b;
+        }
+
+        /* Шапка */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav ul li a:hover {
+            color: #e74c3c;
+        }
+
+        #cart-count {
+            background-color: #e74c3c;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* Секции */
+        .section {
+            display: none;
+            padding: 60px 0;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Главная страница */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1556909211-d5b0d8f8b6f8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            color: #fff;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .features {
+            background-color: #fff;
+        }
+
+        .features .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .feature i {
+            font-size: 40px;
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .popular-products h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        /* Каталог */
+        .catalog h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+.products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .product-card h3 {
+            padding: 15px 15px 0;
+            font-size: 18px;
+        }
+
+        .product-card .description {
+            padding: 0 15px;
+            color: #666;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .product-card .price {
+            padding: 0 15px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .product-card .btn {
+            display: block;
+            width: calc(100% - 30px);
+            margin: 15px;
+            text-align: center;
+        }
+
+        /* Фильтры */
+        .filters {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            gap: 15px;
+        }
+
+        .filters select {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 16px;
+        }
+
+        /* Корзина */
+        .cart-items {
+            margin-bottom: 30px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-quantity button {
+            background-color: #f1f1f1;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cart-item-quantity input {
+            width: 50px;
+            text-align: center;
+            margin: 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+
+        .cart-item-remove {
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 20px;
+            margin-left: 20px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .cart-summary {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: right;
+        }
+
+        .cart-summary h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 15px;
+            font-size: 18px;
+        }
+
+        /* Регистрация */
+        .registration h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #register-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+.form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #e74c3c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 40px 0;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 20px;
+            padding: 0 15px;
+        }
+
+        footer .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ecf0f1;
+            text-decoration: none;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .footer-section ul li a:hover {
+            color: #e74c3c;
+        }
+
+        /* Уведомления */
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2ecc71;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 4px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header .container {
+                flex-direction: column;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 5px 10px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .feature {
+                min-width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .cart-item-info {
+                padding: 15px 0;
+            }
+
+            .cart-item-quantity {
+                margin: 15px 0;
+            }
+
+            footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-section {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">Modern Home</div>
+            <nav>
+                <ul>
+                    <li><a class="nav-link" data-section="home">Главная</a></li>
+                    <li><a class="nav-link" data-section="catalog">Каталог</a></li>
+                    <li><a class="nav-link" data-section="cart"><i class="fas fa-shopping-cart"></i> Корзина <span id="cart-count">0</span></a></li>
+                    <li><a class="nav-link btn-register" data-section="register">Регистрация</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+<!-- Главная страница -->
+    <section id="home" class="section active">
+        <div class="hero">
+            <div class="container">
+                <h1>Современная мебель для вашего дома</h1>
+                <p>Откройте для себя коллекцию элегантной и функциональной мебели</p>
+                <a class="btn nav-link" data-section="catalog">Посмотреть каталог</a>
+            </div>
+        </div>
+
+        <div class="features">
+            <div class="container">
+                <div class="feature">
+                    <i class="fas fa-truck"></i>
+                    <h3>Быстрая доставка</h3>
+                    <p>Доставка по всей стране за 3-5 рабочих дней</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-undo"></i>
+                    <h3>Легкий возврат</h3>
+                    <p>30 дней на возврат товара без вопросов</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-medal"></i>
+                    <h3>Гарантия качества</h3>
+                    <p>Все товары проходят строгий контроль качества</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="popular-products">
+            <div class="container">
+                <h2>Популярные товары</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Диван Modern Comfort">
+                        <h3>Диван Modern Comfort</h3>
+                        <p class="price">45,999 ₽</p>
+                        <button class="btn add-to-cart" data-id="1" data-name="Диван Modern Comfort" data-price="45999">В корзину</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Кресло Elegance">
+                        <h3>Кресло Elegance</h3>
+                        <p class="price">12,499 ₽</p>
+                        <button class="btn add-to-cart" data-id="2" data-name="Кресло Elegance" data-price="12499">В корзину</button>
+                    </div>
+                    <div class="product-card">
+                        <img src="https://images.unsplash.com/photo-1567538096631-e0a2f541f5a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Стол Urban">
+                        <h3>Стол Urban</h3>
+                        <p class="price">22,799 ₽</p>
+                        <button class="btn add-to-cart" data-id="3" data-name="Стол Urban" data-price="22799">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Каталог -->
+    <section id="catalog" class="section">
+        <div class="catalog">
+            <div class="container">
+                <h1>Каталог мебели</h1>
+                <div class="filters">
+                    <select id="category-filter">
+                        <option value="all">Все категории</option>
+                        <option value="sofas">Диваны</option>
+                        <option value="chairs">Кресла</option>
+                        <option value="tables">Столы</option>
+                        <option value="beds">Кровати</option>
+                    </select>
+                    <select id="price-filter">
+                        <option value="all">Любая цена</option>
+                        <option value="0-10000">До 10,000 ₽</option>
+                        <option value="10000-30000">10,000 - 30,000 ₽</option>
+                        <option value="30000-50000">30,000 - 50,000 ₽</option>
+                        <option value="50000+">От 50,000 ₽</option>
+                    </select>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="sofas" data-price="45999">
+                        <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Диван Modern Comfort">
+                        <h3>Диван Modern Comfort</h3>
+                        <p class="description">Элегантный диван с подлокотниками и регулируемой спинкой</p>
+                        <p class="price">45,999 ₽</p>
+                        <button class="btn add-to-cart" data-id="1" data-name="Диван Modern Comfort" data-price="45999">В корзину</button>
+                    </div>
+                    <div class="product-card" data-category="chairs" data-price="12499">
+                        <img src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Кресло Elegance">
+                        <h3>Кресло Elegance</h3>
+                        <p class="description">Удобное кресло с металлическим каркасом и тканевой обивкой</p>
+                        <p class="price">12,499 ₽</p>
+                        <button class="btn add-to-cart" data-id="2" data-name="Кресло Elegance" data-price="12499">В корзину</button>
+                    </div>
+                    <div class="product-card" data-category="tables" data-price="22799">
+                        <img src="https://images.unsplash.com/photo-1567538096631-e0a2f541f5a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Стол Urban">
+                        <h3>Стол Urban</h3>
+                        <p class="description">Современный стол из массива дерева с металлическими ножками</p>
+                        <p class="price">22,799 ₽</p>
+                        <button class="btn add-to-cart" data-id="3" data-name="Стол Urban" data-price="22799">В корзину</button>
+                    </div>
+                    <div class="product-card" data-category="beds" data-price="38999">
+                        <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Кровать Minimal">
+                        <h3>Кровать Minimal</h3>
+                        <p class="description">Минималистичная кровать с мягким изголовьем и ящиками для хранения</p>
+                        <p class="price">38,999 ₽</p>
+                        <button class="btn add-to-cart" data-id="4" data-name="Кровать Minimal" data-price="38999">В корзину</button>
+                    </div>
+                    <div class="product-card" data-category="sofas" data-price="32999">
+                        <img src="https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Диван Compact">
+                        <h3>Диван Compact</h3>
+                        <p class="description">Компактный диван-кровать с механизмом трансформации</p>
+
+<p class="price">32,999 ₽</p>
+                        <button class="btn add-to-cart" data-id="5" data-name="Диван Compact" data-price="32999">В корзину</button>
+                    </div>
+                    <div class="product-card" data-category="chairs" data-price="8999">
+                        <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Кресло Relax">
+                        <h3>Кресло Relax</h3>
+                        <p class="description">Кресло для отдыха с регулируемым наклоном спинки</p>
+                        <p class="price">8,999 ₽</p>
+                        <button class="btn add-to-cart" data-id="6" data-name="Кресло Relax" data-price="8999">В корзину</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Корзина -->
+    <section id="cart" class="section">
+        <div class="cart">
+            <div class="container">
+                <h1>Ваша корзина</h1>
+                <div class="cart-items" id="cart-items">
+                    <p class="empty-cart">Ваша корзина пуста</p>
+                </div>
+                <div class="cart-summary">
+                    <h3>Итого: <span id="cart-total">0</span> ₽</h3>
+                    <button class="btn checkout-btn" id="checkout-btn">Оформить заказ</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Регистрация -->
+    <section id="register" class="section">
+        <div class="registration">
+            <div class="container">
+                <h1>Создать аккаунт</h1>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="name">Имя</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Подтвердите пароль</label>
+                        <input type="password" id="confirm-password" name="confirm-password" required>
+                    </div>
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                    <p class="login-link">Уже есть аккаунт? <a class="nav-link" data-section="login">Войти</a></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-section">
+                <h3>Modern Home</h3>
+                <p>Современная мебель для современного образа жизни</p>
+            </div>
+            <div class="footer-section">
+                <h3>Контакты</h3>
+                <p>info@modernhome.ru</p>
+                <p>+7 (495) 123-45-67</p>
+            </div>
+            <div class="footer-section">
+                <h3>Быстрая навигация</h3>
+                <ul>
+                    <li><a class="nav-link" data-section="home">Главная</a></li>
+                    <li><a class="nav-link" data-section="catalog">Каталог</a></li>
+                    <li><a class="nav-link" data-section="cart">Корзина</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+<script>
+        // Корзина
+        let cart = JSON.parse(localStorage.getItem('cart'))  [];
+
+        // Обновление счетчика корзины
+        function updateCartCount() {
+            const count = cart.reduce((total, item) => total + item.quantity, 0);
+            document.querySelectorAll('#cart-count').forEach(el => {
+                el.textContent = count;
+            });
+        }
+
+        // Добавление товара в корзину
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price: parseInt(price), quantity: 1 });
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showNotification(`${name} добавлен в корзину`);
+            
+            // Если находимся на странице корзины, обновляем ее
+            if (document.getElementById('cart').classList.contains('active')) {
+                renderCartItems();
+            }
+        }
+
+        // Удаление товара из корзины
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        // Изменение количества товара
+        function updateQuantity(id, newQuantity) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                item.quantity = Math.max(1, newQuantity);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCartItems();
+            }
+        }
+
+        // Отображение товаров в корзине
+        function renderCartItems() {
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = '<p class="empty-cart">Ваша корзина пуста</p>';
+                cartTotalEl.textContent = '0';
+                return;
+            }
+            
+            let html = '';
+            let total = 0;
+            
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                html += `
+                    <div class="cart-item" data-id="${item.id}">
+                        <img src="${getProductImage(item.id)}" alt="${item.name}">
+                        <div class="cart-item-info">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
+                        </div>
+                        <div class="cart-item-quantity">
+                            <button class="decrease">-</button>
+                            <input type="number" value="${item.quantity}" min="1">
+                            <button class="increase">+</button>
+                        </div>
+                        <div class="cart-item-remove">&times;</div>
+                    </div>
+                `;
+            });
+            
+            cartItemsEl.innerHTML = html;
+            cartTotalEl.textContent = total.toLocaleString();
+            
+            // Добавление обработчиков событий
+            document.querySelectorAll('.cart-item-remove').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.closest('.cart-item').dataset.id);
+                    removeFromCart(id);
+                });
+            });
+            
+            document.querySelectorAll('.decrease').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.nextElementSibling;
+                    const newQuantity = parseInt(input.value) - 1;
+                    input.value = newQuantity;
+                    const id = parseInt(btn.closest('.cart-item').dataset.id);
+                    u
+
+pdateQuantity(id, newQuantity);
+                });
+            });
+            
+            document.querySelectorAll('.increase').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const input = btn.previousElementSibling;
+                    const newQuantity = parseInt(input.value) + 1;
+                    input.value = newQuantity;
+                    const id = parseInt(btn.closest('.cart-item').dataset.id);
+                    updateQuantity(id, newQuantity);
+                });
+            });
+            
+            document.querySelectorAll('.cart-item-quantity input').forEach(input => {
+                input.addEventListener('change', () => {
+                    const newQuantity = parseInt(input.value)  1;
+                    input.value = newQuantity;
+                    const id = parseInt(input.closest('.cart-item').dataset.id);
+                    updateQuantity(id, newQuantity);
+                });
+            });
+        }
+
+        // Получение изображения товара по ID
+        function getProductImage(id) {
+            const images = {
+                1: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                2: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                3: 'https://images.unsplash.com/photo-1567538096631-e0a2f541f5a4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                4: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                5: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
+                6: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+            };
+            return images[id]  'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80';
+        }
+
+        // Уведомление
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+
+        // Фильтрация товаров
+        function filterProducts() {
+            const category = document.getElementById('category-filter').value;
+            const price = document.getElementById('price-filter').value;
+            
+            document.querySelectorAll('.product-card').forEach(card => {
+                const cardCategory = card.dataset.category;
+                const cardPrice = parseInt(card.dataset.price);
+                
+                let categoryMatch = category === 'all'  cardCategory === category;
+                let priceMatch = true;
+                
+                if (price !== 'all') {
+                    const [min, max] = price.split('-').map(Number);
+                    if (price.endsWith('+')) {
+                        priceMatch = cardPrice >= min;
+                    } else {
+                        priceMatch = cardPrice >= min && cardPrice <= max;
+                    }
+                }
+                
+                card.style.display = categoryMatch && priceMatch ? 'block' : 'none';
+            });
+        }
+
+// Оформление заказа
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Ваша корзина пуста');
+                return;
+            }
+            
+            showNotification('Заказ оформлен! Спасибо за покупку!');
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            renderCartItems();
+        }
+
+        // Навигация по страницам
+        function navigateTo(sectionId) {
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+            
+            // Особые действия для некоторых страниц
+            if (sectionId === 'cart') {
+                renderCartItems();
+            }
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            
+            // Обработчики для кнопок "В корзину"
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const id = parseInt(btn.dataset.id);
+                    const name = btn.dataset.name;
+                    const price = btn.dataset.price;
+                    addToCart(id, name, price);
+                });
+            });
+            
+            // Обработчики для фильтров
+            if (document.getElementById('category-filter')) {
+                document.getElementById('category-filter').addEventListener('change', filterProducts);
+                document.getElementById('price-filter').addEventListener('change', filterProducts);
+            }
+            
+            // Обработчик для оформления заказа
+            if (document.getElementById('checkout-btn')) {
+                document.getElementById('checkout-btn').addEventListener('click', checkout);
+            }
+            
+            // Обработчик для формы регистрации
+            if (document.getElementById('register-form')) {
+                document.getElementById('register-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const password = document.getElementById('password').value;
+                    const confirmPassword = document.getElementById('confirm-password').value;
+                    
+                    if (password !== confirmPassword) {
+                        showNotification('Пароли не совпадают');
+                        return;
+                    }
+                    
+                    showNotification('Регистрация успешна!');
+                    this.reset();
+                    navigateTo('home');
+                });
+            }
+            
+            // Обработчики для навигации
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.dataset.section;
+                    navigateTo(sectionId);
+                });
+            });
+            
+            // Показываем главную страницу по умолчанию
+            if (!window.location.hash) {
+                navigateTo('home');
+            }
+        });
+
+        // Обработка хэша в URL
+        window.addEventListener('hashchange', () => {
+            const sectionId = window.location.hash.substring(1) || 'home';
+            navigateTo(sectionId);
+        });
+    </script>
+</body>
+</html>
