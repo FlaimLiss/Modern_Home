@@ -3,7 +3,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 $host = "sql307.infinityfree.com";
-$username = "if0_39282404";
+$username = "epiz_if0_39282404";
 $password = "Wer_615243_A";
 $dbname = "if0_39282404_modern_home_db";
 
