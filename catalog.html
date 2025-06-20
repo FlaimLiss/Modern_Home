@@ -21,7 +21,81 @@
             </nav>
         </div>
     </header>
-    
+
+    <section class="catalog">
+        <div class="container">
+            <h1>Каталог мебели</h1>
+            <div class="filters">
+                <select id="category-filter">
+                    <option value="all">Все категории</option>
+                    <option value="sofas">Диваны</option>
+                    <option value="chairs">Кресла</option>
+                    <option value="tables">Столы</option>
+                    <option value="beds">Кровати</option>
+                </select>
+                <select id="price-filter">
+                    <option value="all">Любая цена</option>
+                    <option value="0-10000">До 10,000 ₽</option>
+                    <option value="10000-30000">10,000 - 30,000 ₽</option>
+                    <option value="30000-50000">30,000 - 50,000 ₽</option>
+                    <option value="50000+">От 50,000 ₽</option>
+                </select>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card" data-category="sofas" data-price="45999">
+                    <img src="images/sofa1.jpg" alt="Диван Modern Comfort">
+                    <h3>Диван Modern Comfort</h3>
+                    <p class="description">Элегантный диван с подлокотниками и регулируемой спинкой</p>
+                    <p class="price">45,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="1" data-name="Диван Modern Comfort" data-price="45999">В корзину</button>
+                </div>
+                <div class="product-card" data-category="chairs" data-price="12499">
+                    <img src="images/chair1.jpg" alt="Кресло Elegance">
+                    <h3>Кресло Elegance</h3>
+                    <p class="description">Удобное кресло с металлическим каркасом и тканевой обивкой</p>
+                    <p class="price">12,499 ₽</p>
+                    <button class="btn add-to-cart" data-id="2" data-name="Кресло Elegance" data-price="12499">В корзину</button>
+                </div>
+                <div class="product-card" data-category="tables" data-price="22799">
+                    <img src="images/table1.jpg" alt="Стол Urban">
+                    <h3>Стол Urban</h3>
+                    <p class="description">Современный стол из массива дерева с металлическими ножками</p>
+                    <p class="price">22,799 ₽</p>
+                    <button class="btn add-to-cart" data-id="3" data-name="Стол Urban" data-price="22799">В корзину</button>
+                </div>
+                <div class="product-card" data-category="beds" data-price="38999">
+                    <img src="images/bed1.jpg" alt="Кровать Minimal">
+                    <h3>Кровать Minimal</h3>
+                    <p class="description">Минималистичная кровать с мягким изголовьем и ящиками для хранения</p>
+                    <p class="price">38,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="4" data-name="Кровать Minimal" data-price="38999">В корзину</button>
+                </div>
+                <div class="product-card" data-category="sofas" data-price="32999">
+                    <img src="images/sofa2.jpg" alt="Диван Compact">
+                    <h3>Диван Compact</h3>
+                    <p class="description">Компактный диван-кровать с механизмом трансформации</p>
+                    <p class="price">32,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="5" data-name="Диван Compact" data-price="32999">В корзину</button>
+                </div>
+                <div class="product-card" data-category="chairs" data-price="8999">
+                    <img src="images/chair2.jpg" alt="Кресло Relax">
+                    <h3>Кресло Relax</h3>
+                    <p class="description">Кресло для отдыха с регулируемым наклоном спинки</p>
+                    <p class="price">8,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="6" data-name="Кресло Relax" data-price="8999">В корзину</button>
+                </div>
+                <div class="product-card" data-category="tables" data-price="36999">
+                    <img src="images/table2.jpg" alt="Стол Waterlone">
+                    <h3>Waterlone</h3>
+                    <p class="description">Комфортабельный стол с прекрасным узором водной глади</p>
+                    <p class="price">36,999 ₽</p>
+                    <button class="btn add-to-cart" data-id="7" data-name="Waterlone" data-price="36999">В корзину</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-section">
@@ -43,6 +117,8 @@
             </div>
         </div>
     </footer>
-   <script src="js/script.js?v=1.1"></script>
- </body>
+    
+
+    <script src="js/script.js"></script>
+</body>
 </html>
