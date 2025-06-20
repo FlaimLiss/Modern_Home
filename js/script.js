@@ -1,6 +1,17 @@
 // Корзина
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+// Объект соответствия ID товаров и их изображений
+const productImages = {
+    1: 'sofa1',
+    2: 'chair1',
+    3: 'table1',
+    4: 'bed1',
+    5: 'sofa2',
+    6: 'chair2',
+    7: 'table2'
+};
+
 // Обновление счетчика корзины
 function updateCartCount() {
     const count = cart.reduce((total, item) => total + item.quantity, 0);
@@ -19,10 +30,11 @@ function addToCart(id, name, price) {
         cart.push({ id, name, price, quantity: 1 });
     }
     
-    localStorage.setItem('cart', JSON.stringify(cart);
+    localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
     showNotification(`${name} добавлен в корзину`);
 }
+
 // Удаление товара из корзины
 function removeFromCart(id) {
     cart = cart.filter(item => item.id !== id);
@@ -59,14 +71,7 @@ function renderCartItems() {
         total += item.price * item.quantity;
         html += `
             <div class="cart-item" data-id="${item.id}">
-                <img src="images/${
-                              item.id === 1 ? 'sofa1' : 
-                              item.id === 2 ? 'chair1' : 
-                              item.id === 3 ? 'table1' : 
-                              item.id === 4 ? 'bed1' : 
-                              item.id === 5 ? 'sofa2' : 
-                              item.id === 6 ? 'chair2' : 
-                              item.id === 7 ? 'table2' }.jpg" alt="${item.name}">
+                <img src="images/${productImages[item.id]}.jpg" alt="${item.name}">
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.name}</div>
                     <div class="cart-item-price">${item.price.toLocaleString()} ₽</div>
