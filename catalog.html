@@ -119,24 +119,24 @@
     </footer>
     <script src="js/script.js?v=1.1"></script>
     <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Загрузка featured products
-    fetch('/api/furniture.php?limit=4')
+    document.addEventListener('DOMContentLoaded', function() {
+    fetch('api/furniture.php')
         .then(response => response.json())
-        .then(products => {
-            const container = document.querySelector('.products-grid');
-            products.forEach(product => {
-                container.innerHTML += `
-                    <div class="product-card">
-                        <img src="${product.image_url}" alt="${product.name}">
-                        <h3>${product.name}</h3>
-                        <p>${product.description}</p>
-                        <span class="price">$${product.price.toFixed(2)}</span>
-                        <a href="site.html?id=${product.id}" class="btn">View Details</a>
+        .then(data => {
+            const catalog = document.getElementById('catalog');
+            data.forEach(item => {
+                catalog.innerHTML += `
+                    <div class="product">
+                        <img src="${item.image_path}" alt="${item.name}">
+                        <h3>${item.name}</h3>
+                        <p>${item.description}</p>
+                        <span>$${item.price.toFixed(2)}</span>
+                        <button onclick="addToCart(${item.id})">В корзину</button>
                     </div>
                 `;
             });
-        });
+        })
+        .catch(error => console.error('Error:', error));
 });
 </script>
 </body>
