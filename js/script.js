@@ -250,12 +250,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
-// Функция для отображения товаров в корзине
-function displayCartItems() {
-    const cartItemsElement = document.getElementById('cart-items');
-    const cartTotalElement = document.getElementById('cart-total');
-    
-    // Получаем корзину из localStorage
+ // Получаем актуальную корзину
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     
     if (cart.length === 0) {
@@ -288,21 +283,33 @@ function displayCartItems() {
     cartItemsElement.innerHTML = itemsHTML;
     cartTotalElement.textContent = total;
     
-    // Добавляем обработчики для кнопок удаления
-    document.querySelectorAll('.remove-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            removeFromCart(e.target.dataset.id);
-            displayCartItems(); // Обновляем отображение после удаления
-        });
+   // Обработчик для кнопок удаления (делегирование событий)
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('remove-btn')) {
+        const id = e.target.getAttribute('data-id');
+        removeFromCart(id);
+        displayCartItems(); // Перерисовываем корзину
+    }
     });
-}
-
+)
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    displayCartItems();
+    // Обработчик для кнопки оформления заказа
+    document.getElementById('checkout-btn').addEventListener('click', function() {
+        alert('Заказ оформлен!');
+        localStorage.removeItem('cart');
+        displayCartItems();
+        updateCartCount();
+    });
+});
 // Функция для удаления товара из корзины
 function removeFromCart(id) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart = cart.filter(item => item.id !== id);
     localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
+    updateCartCount(); // Обновляем счетчик в шапке сайта
+    return cart; // Возвращаем обновленную корзину
 }
 
 // Вызываем функцию при загрузке страницы
