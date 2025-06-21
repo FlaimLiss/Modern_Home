@@ -145,32 +145,6 @@ function showNotification(message) {
         }, 300);
     }, 3000);
 }
-
-// Фильтрация товаров
-function filterProducts() {
-    const category = document.getElementById('category-filter').value;
-    const price = document.getElementById('price-filter').value;
-    
-    document.querySelectorAll('.product-card').forEach(card => {
-        const cardCategory = card.dataset.category;
-        const cardPrice = parseInt(card.dataset.price);
-        
-        let categoryMatch = category === 'all' || cardCategory === category;
-        let priceMatch = true;
-        
-        if (price !== 'all') {
-            const [min, max] = price.split('-').map(Number);
-            if (price.endsWith('+')) {
-                priceMatch = cardPrice >= min;
-            } else {
-                priceMatch = cardPrice >= min && cardPrice <= max;
-            }
-        }
-        
-        card.style.display = categoryMatch && priceMatch ? 'block' : 'none';
-    });
-}
-
 // Оформление заказа
 function checkout() {
     if (cart.length === 0) {
